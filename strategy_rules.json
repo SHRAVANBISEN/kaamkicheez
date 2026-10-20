@@ -1,0 +1,28 @@
+{
+    "version": "1.0",
+    "last_updated": "2026-05-05",
+
+    "filters": {
+        "min_risk_reward": 1.5,
+        "min_confidence": 60,
+        "avoid_rsi_above": 75,
+        "avoid_rsi_below": 20,
+        "avoid_first_minutes": 15,
+        "avoid_last_minutes": 15,
+        "max_trades_per_day": 3
+    },
+
+    "preferences": {
+        "preferred_signals": ["STRONG_BUY", "STRONG_SELL", "BUY", "SELL"],
+        "require_macd_confirmation": true,
+        "require_ema_confirmation": false
+    },
+
+    "risk_management": {
+        "max_loss_per_trade_pct": 1.0,
+        "default_sl_atr_multiplier": 1.5,
+        "trailing_sl": false
+    },
+
+    "notes": "Edit this file anytime to change strategy rules. No coding needed. Gemini reads this before every analysis."
+}

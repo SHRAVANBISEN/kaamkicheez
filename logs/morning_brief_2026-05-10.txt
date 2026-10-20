@@ -1,0 +1,73 @@
+======================================================
+  📋 MORNING BRIEF — Sunday, 10 May 2026
+  Generated: 23:31
+======================================================
+
+🎯 TODAY'S SIGNALS
+
+  SELL SIGNALS:
+  🔴 ICICIBANK    | Conf: 75% | Entry: ₹1267.0 | Target: ₹1254.73 | SL: ₹1271.26 | R:R 1:2.88 | RSI: 47.55
+
+  WAIT / NO TRADE:
+  🟡 TCS          | Conf: 0% | RSI: 49.27 | BEARISH trend
+  🟡 WIPRO        | Conf: 0% | RSI: 47.18 | BEARISH trend
+
+──────────────────────────────────────────────────────
+  📊 OVERVIEW: 3 stocks | 0 BUY | 1 SELL | 2 WAIT | 1 actionable
+──────────────────────────────────────────────────────
+
+📈 INDICATOR SNAPSHOT
+
+  Stock           RSI      EMA     MACD BB Position    Pre-Signal
+  ──────────── ────── ──────── ──────── ────────────── ──────────
+  ICICIBANK     47.55  BEARISH  BEARISH LOWER_HALF     SELL
+  TCS           49.27  BEARISH  BULLISH UPPER_HALF     WAIT
+  WIPRO         47.18  BEARISH  BULLISH UPPER_HALF     WAIT
+
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+─
+
+🤖 AI REASONING (Actionable Signals)
+
+  ICICIBANK:
+    The preliminary signal is a strong SELL, supported by 
+    bearish MACD momentum and a bearish EMA trend. The price 
+    positioning in the lower Bollinger Band half further 
+    confirms downside potential, making it a favorable setup 
+    for a short trade with good risk-reward. 
+
+──────────────────────────────────────────────────────
+
+📓 JOURNAL STATS
+
+  Trades: 0 total | 0 open | 0 closed
+  Win Rate: 0% | Total P&L: ₹0.0 | Best: —
+
+======================================================
+  End of Morning Brief — Sunday, 10 May 2026
+======================================================
