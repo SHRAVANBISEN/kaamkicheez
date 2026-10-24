@@ -4,7 +4,7 @@
 
 import os
 from datetime import datetime
-from config import DB_PATH, LOG_DIR
+from stocktrading.config import DB_PATH, LOG_DIR
 
 
 def generate_morning_brief(all_analysis, all_indicators, journal_summary=None):
@@ -153,11 +153,11 @@ def generate_morning_brief(all_analysis, all_indicators, journal_summary=None):
 
 
 if __name__ == "__main__":
-    from auth import get_access_token
-    from data_fetcher import fetch_watchlist, init_watchlist_db
-    from indicators import calculate_all
-    from ai_analyst import analyze_all_at_once
-    from trade_journal import init_trade_journal, get_journal_summary
+    from stocktrading.auth import get_access_token
+    from stocktrading.data_fetcher import fetch_watchlist, init_watchlist_db
+    from stocktrading.indicators import calculate_all
+    from stocktrading.ai_analyst import analyze_all_at_once
+    from stocktrading.trade_journal import init_trade_journal, get_journal_summary
 
     init_watchlist_db()
     init_trade_journal()

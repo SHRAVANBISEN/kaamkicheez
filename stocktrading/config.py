@@ -1,18 +1,21 @@
 # config.py — Central configuration for StockTradingAlgo
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+RESOURCE_DIR = PROJECT_ROOT / "resources"
+DOCS_DIR = PROJECT_ROOT / "docs"
+load_dotenv(PROJECT_ROOT / ".env")
 
 # ── API Credentials ────────────────────────────────────────
 UPSTOX_API_KEY      = os.getenv("UPSTOX_API_KEY")
 UPSTOX_API_SECRET   = os.getenv("UPSTOX_API_SECRET")
 UPSTOX_REDIRECT_URL = os.getenv("UPSTOX_REDIRECT_URL", "http://127.0.0.1:5000/callback")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-STRATEGY_FILE = "strategy_rules.json"
 
 # ── Token Storage ──────────────────────────────────────────
-TOKEN_FILE = "db/upstox_token.json"
+TOKEN_FILE = str(PROJECT_ROOT / "db" / "upstox_token.json")
 
 # ── Watchlist ──────────────────────────────────────────────
 # Upstox instrument keys for NSE stocks (format: NSE_EQ|INE...)
@@ -32,16 +35,16 @@ WATCHLIST = [
 ]
 
 # ── Trading Settings ───────────────────────────────────────
-DEFAULT_TIMEFRAME   = "30minute"   # Options: 1minute, 5minute, 15minute, 30minute, 1day
+DEFAULT_TIMEFRAME   = "5minute"    # Intraday engine supports 1, 5 and 15 minute bars
 CANDLE_LOOKBACK     = 100          # How many candles to fetch for indicator calculation
 MARKET_OPEN         = "09:15"
 MARKET_CLOSE        = "15:30"
 TIMEZONE            = "Asia/Kolkata"
 
 # ── Paths ──────────────────────────────────────────────────
-DB_PATH             = "db/trades.db"
-STRATEGY_FILE       = "strategy_rules.json"
-LOG_DIR             = "logs/"
+DB_PATH             = str(PROJECT_ROOT / "db" / "trades.db")
+STRATEGY_FILE       = str(RESOURCE_DIR / "strategy_rules.json")
+LOG_DIR             = str(PROJECT_ROOT / "logs")
 
 # ── Indicator Defaults ─────────────────────────────────────
 RSI_PERIOD          = 14
@@ -52,6 +55,9 @@ MACD_SLOW           = 26
 MACD_SIGNAL         = 9
 BB_PERIOD           = 20
 BB_STD              = 2
+
+ATR_PERIOD          = 14
+ADX_PERIOD          = 14
 
 # ── Sanity Check ───────────────────────────────────────────
 if __name__ == "__main__":

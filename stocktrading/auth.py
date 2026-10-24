@@ -5,7 +5,7 @@ import webbrowser
 import requests
 from datetime import datetime
 from flask import Flask, request as flask_request
-from config import (
+from stocktrading.config import (
     UPSTOX_API_KEY, UPSTOX_API_SECRET,
     UPSTOX_REDIRECT_URL, TOKEN_FILE
 )
@@ -45,7 +45,7 @@ def exchange_code_for_token(auth_code):
 
 
 def save_token(token):
-    os.makedirs("db", exist_ok=True)
+    os.makedirs(os.path.dirname(TOKEN_FILE), exist_ok=True)
     with open(TOKEN_FILE, "w") as f:
         json.dump({
             "access_token": token,

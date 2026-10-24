@@ -9,21 +9,20 @@ st.set_page_config(page_title="StockTradingAlgo", page_icon="📈",
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap');
-html,body,[class*="css"]{font-family:'Syne',sans-serif;background:#0a0e1a;color:#e2e8f0}
+html,body,[class*="css"]{font-family:'Segoe UI',Arial,sans-serif;background:#0a0e1a;color:#e2e8f0}
 .stApp{background:#0a0e1a}
 #MainMenu,footer,header{visibility:hidden}
 .block-container{padding:1.2rem 2rem}
-.stTabs [data-baseweb="tab-list"]{background:#111827;border-radius:10px;padding:4px;border:1px solid #1e2d4a;gap:4px}
+.stTabs [data-baseweb="tab-list"]{background:#111827;border-radius:10px;padding:4px;border:1px solid #1e2d4a;gap:4px;overflow-x:auto}
 .stTabs [data-baseweb="tab"]{background:transparent;color:#64748b;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:8px 16px}
 .stTabs [aria-selected="true"]{background:#1d4ed8!important;color:white!important}
 .stTabs [data-baseweb="tab-panel"]{padding-top:1.2rem}
-.dash-header{padding:0.8rem 0 1.2rem 0;border-bottom:1px solid #1e2d4a;margin-bottom:1.2rem}
+.dash-header{padding:1.3rem 1.5rem;background:linear-gradient(120deg,#14213b,#0f172a);border:1px solid #263958;border-radius:14px;margin-bottom:0.8rem}
 .dash-title{font-size:1.5rem;font-weight:800;color:#f1f5f9}
-.dash-subtitle{font-size:0.72rem;color:#64748b;font-family:'JetBrains Mono',monospace}
-.live-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite;display:inline-block;margin-right:6px}
+.dash-subtitle{font-size:0.78rem;color:#a7b7d0;font-family:'Segoe UI',sans-serif;margin-top:5px}
+.live-dot{width:8px;height:8px;background:#60a5fa;border-radius:50%;display:inline-block;margin-right:9px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.section-label{font-size:0.65rem;font-weight:700;letter-spacing:2px;color:#475569;text-transform:uppercase;margin-bottom:0.5rem;font-family:'JetBrains Mono',monospace}
+.section-label{font-size:0.72rem;font-weight:600;letter-spacing:1px;color:#a7b7d0;text-transform:uppercase;margin-bottom:0.5rem;font-family:'Segoe UI',sans-serif}
 .card{background:#111827;border:1px solid #1e2d4a;border-radius:10px;padding:1rem 1.2rem;margin-bottom:0.8rem}
 .log-box{background:#070b14;border:1px solid #1e2d4a;border-radius:8px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;max-height:200px;overflow-y:auto;line-height:1.8}
 .log-line{color:#94a3b8}.log-success{color:#22c55e}.log-info{color:#38bdf8}.log-warn{color:#f59e0b}.log-error{color:#ef4444}
@@ -34,7 +33,7 @@ html,body,[class*="css"]{font-family:'Syne',sans-serif;background:#0a0e1a;color:
 .badge-win{background:#052e16;color:#22c55e;border:1px solid #166534;padding:3px 8px;border-radius:20px;font-size:0.7rem;font-family:'JetBrains Mono',monospace}
 .badge-loss{background:#2d0a0a;color:#ef4444;border:1px solid #7f1d1d;padding:3px 8px;border-radius:20px;font-size:0.7rem;font-family:'JetBrains Mono',monospace}
 .metric-tile{background:#0f172a;border:1px solid #1e2d4a;border-radius:8px;padding:0.8rem 1rem;text-align:center}
-.metric-label{font-size:0.62rem;color:#475569;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace}
+.metric-label{font-size:0.68rem;color:#a7b7d0;letter-spacing:1px;text-transform:uppercase;font-family:'Segoe UI',sans-serif}
 .metric-value{font-size:1.15rem;font-weight:700;color:#f1f5f9;font-family:'JetBrains Mono',monospace;margin-top:2px}
 .metric-value.green{color:#22c55e}.metric-value.red{color:#ef4444}.metric-value.yellow{color:#eab308}.metric-value.blue{color:#38bdf8}
 .results-table{width:100%;border-collapse:collapse;font-size:0.8rem}
@@ -53,7 +52,11 @@ html,body,[class*="css"]{font-family:'Syne',sans-serif;background:#0a0e1a;color:
 .violation-box{background:#1a0a0a;border-left:3px solid #ef4444;border-radius:0 8px 8px 0;padding:0.8rem;font-size:0.75rem;color:#fca5a5;line-height:1.7;margin-top:6px}
 .brief-box{background:#070b14;border:1px solid #1e2d4a;border-radius:8px;padding:1.2rem;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#94a3b8;line-height:1.8;white-space:pre-wrap;max-height:600px;overflow-y:auto}
 .stButton>button{background:linear-gradient(135deg,#1d4ed8,#3b82f6)!important;color:white!important;border:none!important;border-radius:8px!important;font-family:'JetBrains Mono',monospace!important;font-weight:700!important;font-size:0.8rem!important;letter-spacing:1px!important;transition:all 0.2s!important}
-.stButton>button:hover{transform:translateY(-1px)!important}
+.stButton>button:hover{filter:brightness(1.1)}
+button:focus-visible,a:focus-visible{outline:2px solid #93c5fd!important;outline-offset:3px}
+[data-testid="stDataFrame"],[data-testid="stTable"]{border-radius:10px}
+@media(max-width:850px){.block-container{padding:1rem}.dash-header{padding:1rem}.stTabs [data-baseweb="tab"]{padding:8px 10px;letter-spacing:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .stTextInput>div>div>input{background:#111827!important;border:1px solid #1e2d4a!important;color:#f1f5f9!important;border-radius:8px!important;font-family:'JetBrains Mono',monospace!important}
 .stSelectbox>div>div,.stNumberInput>div>div>input{background:#111827!important;border:1px solid #1e2d4a!important;border-radius:8px!important;color:#f1f5f9!important}
 .stTextArea>div>textarea{background:#111827!important;border:1px solid #1e2d4a!important;color:#f1f5f9!important;border-radius:8px!important;font-family:'JetBrains Mono',monospace!important}
@@ -67,24 +70,26 @@ hr{border-color:#1e2d4a}
 
 # ── Imports ────────────────────────────────────────────────
 try:
-    from auth import get_access_token
-    from data_fetcher import (
+    from stocktrading.auth import get_access_token
+    from stocktrading.data_fetcher import (
         fetch_candles, fetch_single_stock,
         init_watchlist_db, get_watchlist_from_db,
         add_stock_to_watchlist, remove_stock_from_watchlist,
         get_all_available_symbols, lookup_and_save_instrument_key,
         get_instrument_key
     )
-    from indicators import calculate_indicators, calculate_all
-    from ai_analyst import analyze, analyze_all_at_once, recommend_stocks_from_news
-    from trade_journal import (
+    from stocktrading.indicators import calculate_indicators, calculate_all
+    from stocktrading.intraday_engine import calculate_features
+    from stocktrading.ai_analyst import analyze, analyze_all_at_once, recommend_stocks_from_news
+    from stocktrading.trade_journal import (
         init_trade_journal, log_trade, close_trade,
         get_all_trades, get_open_trades, get_journal_summary,
         delete_trade, _get_trade_date_info
     )
-    from morning_brief import generate_morning_brief
-    from system_info import render_system_info_tab
-    from config import DEFAULT_TIMEFRAME, LOG_DIR
+    from stocktrading.morning_brief import generate_morning_brief
+    from stocktrading.system_info import render_system_info_tab, render_indicator_snapshot, render_decision_trace
+    from stocktrading.llm_provider import get_settings
+    from stocktrading.config import DEFAULT_TIMEFRAME, LOG_DIR
     import os
     IMPORTS_OK = True
 except Exception as e:
@@ -149,7 +154,7 @@ def get_token():
             st.session_state.token = token
             log("✅ Token loaded", "success")
             return token
-        log("❌ Token failed — run auth.py first", "error")
+        log("Token failed - run python -m stocktrading.auth first", "error")
         return None
     except Exception as e:
         log(f"❌ Auth error: {e}", "error")
@@ -160,10 +165,17 @@ def get_token():
 
 def run_pipeline(symbols_override=None, log_ph=None):
     """
-    Runs full pipeline: fetch → indicators → Gemini.
+    Runs full pipeline: fetch -> indicators -> selected LLM -> rule validation.
     Returns (all_indicators, all_results) dicts.
     symbols_override: if provided, analyse these instead of watchlist.
     """
+    try:
+        get_settings()
+    except ValueError as exc:
+        log(f"Invalid model configuration: {exc}", "error")
+        if log_ph:
+            render_log(log_ph)
+        return {}, {}
     token = get_token()
     if log_ph: render_log(log_ph)
     if not token:
@@ -200,7 +212,7 @@ def run_pipeline(symbols_override=None, log_ph=None):
     all_indicators = {}
     for symbol, df in raw_data.items():
         try:
-            ind = calculate_indicators(df.copy())
+            ind = calculate_features(df.copy())
             if ind:
                 all_indicators[symbol] = ind
                 if log_ph:
@@ -211,9 +223,9 @@ def run_pipeline(symbols_override=None, log_ph=None):
                 log(f"❌ {symbol} — {e}", "error")
                 render_log(log_ph)
 
-    # Phase 3 — Gemini
+    # Phase 3: selected model
     if log_ph:
-        log(f"── PHASE 3: GEMINI ({len(all_indicators)} stocks, 1 call) ──", "info")
+        log(f"PHASE 3: {get_settings().provider.upper()} ({len(all_indicators)} stocks, one batch)", "info")
         render_log(log_ph)
 
     all_results = {}
@@ -229,7 +241,7 @@ def run_pipeline(symbols_override=None, log_ph=None):
                 render_log(log_ph)
     except Exception as e:
         if log_ph:
-            log(f"❌ Gemini error: {e}", "error")
+            log(f"Model analysis error: {e}", "error")
             render_log(log_ph)
 
     return all_indicators, all_results
@@ -267,6 +279,12 @@ def run_single_analysis(symbol, log_ph):
     st.session_state.search_result = None
     st.session_state.search_ind    = None
     st.session_state.log_lines     = []
+    try:
+        get_settings()
+    except ValueError as exc:
+        log(f"Invalid model configuration: {exc}", "error")
+        render_log(log_ph)
+        return
 
     date_info = _get_trade_date_info()
     st.session_state.trade_date_info = date_info
@@ -304,19 +322,25 @@ def run_single_analysis(symbol, log_ph):
 
     log("🔢 Calculating indicators...", "line")
     render_log(log_ph)
-    ind = calculate_indicators(df.copy())
-    if not ind:
-        log("❌ Not enough candle data", "error")
+    try:
+        ind = calculate_features(df.copy())
+    except (ValueError, KeyError, TypeError) as exc:
+        log(f"Candle analysis rejected: {exc}", "error")
         render_log(log_ph)
         return
     log(f"✅ RSI:{ind['rsi']} | {ind['preliminary_signal']}", "success")
     render_log(log_ph)
 
-    log(f"🤖 Gemini analysing {symbol}...", "info")
+    log(f"{get_settings().provider} analysing {symbol}...", "info")
     render_log(log_ph)
     log(f"📰 Fetching news for {symbol}...", "info")
     render_log(log_ph)
-    result = analyze(ind, fetch_news=True)
+    try:
+        result = analyze(ind, fetch_news=True)
+    except (ValueError, OSError, KeyError) as exc:
+        log(f"Analysis could not be completed: {exc}", "error")
+        render_log(log_ph)
+        return
     st.session_state.search_result = result
     st.session_state.search_ind    = ind
     log(f"✅ {result.get('signal')} | {result.get('confidence')}%", "success")
@@ -348,7 +372,7 @@ def render_side_panel(symbol, analysis, indicators):
     with col_news:
         st.markdown(f'<div style="margin-top:0.5rem">{news_sentiment_badge(news_sent)}</div>', unsafe_allow_html=True)
 
-    st.caption(f"Confidence: {conf}%")
+    st.caption(f"Model confidence: {conf}% (not win probability)")
     st.progress(conf / 100)
 
     if violations:
@@ -377,6 +401,7 @@ def render_side_panel(symbol, analysis, indicators):
                 st.error(f"❌ {e}")
 
     st.markdown('<div class="section-label">AI Reasoning</div>', unsafe_allow_html=True)
+    render_decision_trace(analysis)
     st.markdown(f'<div class="reasoning-box">{analysis.get("reasoning","—")}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="reasoning-box" style="border-color:#8b5cf6;margin-top:6px"><b style="color:#8b5cf6">Summary:</b> {analysis.get("indicators_summary","—")}</div>', unsafe_allow_html=True)
 
@@ -398,6 +423,7 @@ def render_side_panel(symbol, analysis, indicators):
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown('<div class="section-label">Indicators</div>', unsafe_allow_html=True)
+    render_indicator_snapshot(indicators)
     rows = [
         ("Close",f"₹{indicators.get('close','—')}"),("RSI",f"{indicators.get('rsi','—')} — {indicators.get('rsi_zone','—')}"),
         ("EMA 9",f"₹{indicators.get('ema9','—')}"),("EMA 21",f"₹{indicators.get('ema21','—')}"),
@@ -416,10 +442,11 @@ def render_side_panel(symbol, analysis, indicators):
 
 def render_recommendations_tab():
     st.markdown('<div class="section-label">Stock Recommendations from Live News</div>', unsafe_allow_html=True)
-    st.markdown('<div class="card"><div style="font-size:0.82rem;color:#94a3b8">Fetches global + Indian market news live, then Gemini identifies NSE stocks likely to move. These are news-driven leads — go to Analysis tab to run full technical analysis on any pick.</div></div>', unsafe_allow_html=True)
+    st.info("The selected model turns available Indian/global RSS headlines into watchlist ideas. "
+            "These are news-only leads, not validated intraday entries; run full analysis before evaluating a trade.")
 
     if st.button("🌐 FIND STOCKS FROM LIVE NEWS", use_container_width=True):
-        with st.spinner("📰 Fetching global news... asking Gemini..."):
+        with st.spinner("Fetching available news and requesting model analysis..."):
             try:
                 known  = get_all_available_symbols()
                 result, error = recommend_stocks_from_news(known_symbols=known)
@@ -639,7 +666,7 @@ def render_morning_brief_tab():
 
         if res:
             try:
-                from trade_journal import get_journal_summary
+                from stocktrading.trade_journal import get_journal_summary
                 summary = get_journal_summary()
                 report, path = generate_morning_brief(res, ind, summary)
                 st.session_state.morning_brief_text = report
@@ -683,9 +710,14 @@ def main():
     st.markdown(f"""
     <div class="dash-header">
         <div class="dash-title"><span class="live-dot"></span>StockTradingAlgo</div>
-        <div class="dash-subtitle">NSE · AI TECHNICAL ANALYSIS · GEMINI · {datetime.now().strftime('%A, %d %b %Y')}</div>
+        <div class="dash-subtitle">NSE EQUITY RESEARCH &nbsp; / &nbsp; EVIDENCE BEFORE ACTION &nbsp; / &nbsp; {datetime.now().strftime('%A, %d %b %Y')}</div>
     </div>
     """, unsafe_allow_html=True)
+    try:
+        model = get_settings()
+        st.caption(f"Model: {model.provider} / {model.model} | {DEFAULT_TIMEFRAME} completed bars | Research only, no automatic orders")
+    except ValueError as exc:
+        st.error(f"Model configuration needs attention: {exc}. See System Info > Model setup.")
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs(["📊  ANALYSIS", "🌐  NEWS PICKS", "📓  JOURNAL", "📋  MORNING BRIEF", "🔧  SYSTEM INFO"])
 

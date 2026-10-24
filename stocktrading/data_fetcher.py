@@ -9,7 +9,10 @@ import gzip
 import io
 import json
 from datetime import datetime, timedelta
-from config import WATCHLIST, DEFAULT_TIMEFRAME, CANDLE_LOOKBACK, TIMEZONE, DB_PATH
+from zoneinfo import ZoneInfo
+from urllib.parse import quote
+from pathlib import Path
+from stocktrading.config import WATCHLIST, DEFAULT_TIMEFRAME, CANDLE_LOOKBACK, TIMEZONE, DB_PATH
 
 # ── Hardcoded keys (fallback + pre-loaded) ─────────────────
 INSTRUMENT_KEYS = {
@@ -31,6 +34,7 @@ BASE_URL = "https://api.upstox.com/v2"
 # ── DB Setup ───────────────────────────────────────────────
 
 def init_watchlist_db():
+    Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
 
     # Watchlist table
@@ -246,26 +250,30 @@ def fetch_candles(symbol, access_token,
             print(f"⚠️  Cannot fetch {symbol} — instrument key not found")
             return None
 
-    to_date   = datetime.now().strftime("%Y-%m-%d")
-    from_date = (datetime.now() - timedelta(days=days_back)).strftime("%Y-%m-%d")
-
-    url = (
-        f"{BASE_URL}/historical-candle"
-        f"/{instrument_key}"
-        f"/{timeframe}"
-        f"/{to_date}"
-        f"/{from_date}"
-    )
+    if timeframe not in ("1minute", "5minute", "15minute"):
+        raise ValueError("Supported intraday timeframes: 1minute, 5minute, 15minute")
+    if not 1 <= days_back <= 28:
+        raise ValueError("Intraday history must be between 1 and 28 calendar days")
+    minutes = int(timeframe.removesuffix("minute"))
+    now = datetime.now(ZoneInfo(TIMEZONE))
+    to_date = (now - timedelta(days=1)).strftime("%Y-%m-%d")
+    from_date = (now - timedelta(days=days_back)).strftime("%Y-%m-%d")
+    encoded_key = quote(instrument_key, safe="")
+    base = "https://api.upstox.com/v3/historical-candle"
+    urls = [
+        f"{base}/{encoded_key}/minutes/{minutes}/{to_date}/{from_date}",
+        f"{base}/intraday/{encoded_key}/minutes/{minutes}",
+    ]
 
     try:
-        resp = requests.get(url, headers=get_headers(access_token))
-        data = resp.json()
-
-        if data.get("status") != "success":
-            print(f"❌ API error for {symbol}: {data}")
-            return None
-
-        candles = data["data"]["candles"]
+        candles = []
+        for url in urls:
+            resp = requests.get(url, headers=get_headers(access_token), timeout=20)
+            resp.raise_for_status()
+            data = resp.json()
+            if data.get("status") != "success":
+                raise ValueError(f"Upstox candle request failed for {symbol}")
+            candles.extend(data["data"]["candles"])
         if not candles:
             print(f"⚠️  No candles for {symbol}")
             return None
@@ -276,9 +284,11 @@ def fetch_candles(symbol, access_token,
         df["timestamp"] = pd.to_datetime(df["timestamp"])
         df              = df.sort_values("timestamp").reset_index(drop=True)
         df["symbol"]    = symbol
+        df.attrs.update(timeframe_minutes=minutes, source="Upstox v3 historical + current-session candles",
+                        received_at=datetime.now(ZoneInfo(TIMEZONE)).isoformat())
         return df
 
-    except Exception as e:
+    except (requests.RequestException, ValueError, KeyError, TypeError) as e:
         print(f"❌ Exception fetching {symbol}: {e}")
         return None
 
@@ -319,7 +329,7 @@ def get_latest_price(symbol, access_token):
 # ── Entry point ────────────────────────────────────────────
 
 if __name__ == "__main__":
-    from auth import get_access_token
+    from stocktrading.auth import get_access_token
     init_watchlist_db()
     token = get_access_token()
     if token:

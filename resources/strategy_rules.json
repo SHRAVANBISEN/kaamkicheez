@@ -1,0 +1,50 @@
+{
+    "version": "3.0",
+    "last_updated": "2026-10-25",
+
+    "institutions": {
+        "flow_max_age_days": 7,
+        "ownership_max_age_days": 180,
+        "deal_max_age_days": 7
+    },
+
+    "intraday": {
+        "enabled": true,
+        "min_history_bars": 100,
+        "freshness_grace_seconds": 90,
+        "opening_range_minutes": 15,
+        "rvol_sessions": 5,
+        "min_relative_volume": 1.2,
+        "min_adx": 20,
+        "max_vwap_distance_atr": 2.0,
+        "require_event_review": true,
+        "fundamental_max_age_days": 120,
+        "event_review_hours": 24,
+        "event_blackout_before_minutes": 60,
+        "event_blackout_after_minutes": 30
+    },
+
+    "filters": {
+        "min_risk_reward": 1.5,
+        "min_confidence": 60,
+        "avoid_rsi_above": 75,
+        "avoid_rsi_below": 20,
+        "avoid_first_minutes": 15,
+        "avoid_last_minutes": 15,
+        "max_trades_per_day": 3
+    },
+
+    "preferences": {
+        "preferred_signals": ["STRONG_BUY", "STRONG_SELL", "BUY", "SELL"],
+        "require_macd_confirmation": false,
+        "require_ema_confirmation": false
+    },
+
+    "risk_management": {
+        "max_loss_per_trade_pct": 1.0,
+        "default_sl_atr_multiplier": 1.5,
+        "trailing_sl": false
+    },
+
+    "notes": "Research starting parameters, not optimized or proven profitable. Intraday gates are enabled; disabling them restores legacy AI decision filtering. MACD/BB are context, not extra votes. Daily trade-count, account sizing, costs and trailing stops are not implemented."
+}

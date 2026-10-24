@@ -4,7 +4,7 @@
 import sqlite3
 import json
 from datetime import datetime, timedelta
-from config import DB_PATH
+from stocktrading.config import DB_PATH
 
 
 # ── DB Setup ───────────────────────────────────────────────
